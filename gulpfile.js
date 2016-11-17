@@ -9,7 +9,8 @@ var glob = require('glob');
 var filePath = './public/js/*.js';
 var rev =require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
-require('./gulp/task')
+require('./gulp/task');
+
 gulp.task('js.bundle',function(res){
     return new Promise(function(resolve){
         glob(filePath,function(err,files){
@@ -39,3 +40,5 @@ gulp.task('replace',['rev'],function(){
         .pipe(gulp.dest('./build'));
 
 })
+
+
