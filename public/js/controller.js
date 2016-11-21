@@ -4,11 +4,9 @@
 var angular = require('angular');
 var app = angular.module('app',[]);
 app.controller('test',['$scope','native',function($scope,native){
-    $scope.showMessage ='hello world';
+    $scope.showMessage ='胡小燕 傻乎乎！';
     $scope.showPage =function(){
         native.showPage($scope.showMessage);
     }
 }])
-
-
 module.exports = app;
