@@ -31783,8 +31783,6 @@ app.controller('test',['$scope','native',function($scope,native){
         native.showPage($scope.showMessage);
     }
 }])
-
-
 module.exports = app;
 
 },{"angular":2}],4:[function(require,module,exports){

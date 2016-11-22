@@ -19,7 +19,6 @@ var app = express();
 var config =require('./config');
 console.log(config.getEnv()+'1');
 console.log(config.get('Env')+'1');
-app.engine()
 app.use('/angular',express.static(path.join(__dirname,'build/html')));
 app.use('/public/js',express.static(path.join(__dirname,'build/js')));
 //app.use('/public/build',express.static(path.join(__dirname,'public/build')));

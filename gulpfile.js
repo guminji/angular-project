@@ -9,9 +9,14 @@ var glob = require('glob');
 var filePath = './public/js/*.js';
 var rev =require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
+var less = require('gulp-less');
 require('./gulp/task');
 
-
+gulp.task('css',function(){
+    return gulp.src('./public/less/*.less')
+        .pipe(less())
+        .pipe(gulp.dest('./public/build/css'))
+})
 gulp.task('js.bundle',['html'],function(res){
 
     return new Promise(function(resolve){
@@ -39,7 +44,13 @@ gulp.task('rev',['js.bundle'],function(){
         .pipe(rev.manifest())
         .pipe(gulp.dest('./build'));
 })
-
+gulp.task('test',function(){
+    return gulp.src(['./public/build/**/*.js'])
+        .pipe(rev())
+        .pipe(gulp.dest('./bulid'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('./bulid'));
+})
 //修改js文件中的版本号
 gulp.task('jsrev',function(){
     var manifest = gulp.src('./build/rev-manifest.json');
