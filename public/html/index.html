@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>angular 测试</title>
-
+    <link rel="stylesheet" href="/public/css/main.css">
 </head>
 <body ng-app="app" ng-controller="test">
-<p>angular 测试{{showMessage}}</p>
+<p>angular 测试{{showMessage}}{{pageNum}}</p>
 <input type="button" ng-click="showPage()">
+<div my-nav nav-List="{a:1}"></div>
+<div foot-page page-num="pageNum"></div>
 </body>
-<script src="/public/js/bundle.js"></script>
+<script src="/public/build/js/bundle.js"></script>
 </html>

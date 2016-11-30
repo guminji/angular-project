@@ -6,7 +6,7 @@ var browserify = require('browserify');
 var promise = require('bluebird');
 var source = require('vinyl-source-stream')
 var glob = require('glob');
-var filePath = './public/js/*.js';
+var filePath = './public/js/**/*.js';
 var rev =require('gulp-rev');
 var revReplace = require('gulp-rev-replace');
 var less = require('gulp-less');
@@ -15,13 +15,28 @@ require('./gulp/task');
 gulp.task('css',function(){
     return gulp.src('./public/less/*.less')
         .pipe(less())
-        .pipe(gulp.dest('./public/build/css'))
+        .pipe(gulp.dest('./build/css'))
 })
-gulp.task('js.bundle',['html'],function(res){
+gulp.task('js.bundle',['html','css'],function(res){
+
+    return new Promise(function(resolve){
+    glob(filePath,function(err,files){
+        console.log(files)
+        browserify({entries:files})
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(gulp.dest('./public/build/js'))
+            .on('end',function(){
+                resolve(true);
+            });
+    })})
+//gulp.src('./public/js/*.js').pipe(gulp.dest('./public/build'));
+})
+gulp.task('js',function(res){
 
     return new Promise(function(resolve){
         glob(filePath,function(err,files){
-        console.log(files)
+            console.log(files)
             browserify({entries:files})
                 .bundle()
                 .pipe(source('bundle.js'))
@@ -29,10 +44,9 @@ gulp.task('js.bundle',['html'],function(res){
                 .on('end',function(){
                     resolve(true);
                 });
-    })})
-    //gulp.src('./public/js/*.js').pipe(gulp.dest('./public/build'));
+        })})
+//gulp.src('./public/js/*.js').pipe(gulp.dest('./public/build'));
 })
-
 gulp.task('html',function(){
     return gulp.src('./public/html/*.html')
         .pipe(gulp.dest('./build/html'))
